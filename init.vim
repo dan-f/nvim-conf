@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 
 " Tools:
 Plug 'Auto-Pairs'
+Plug 'ElmCast/elm-vim/'
 Plug 'Shougo/unite.vim'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'itchyny/vim-haskell-indent'
@@ -108,6 +109,28 @@ set pastetoggle=<F5>    " used for pasting in data
 set ruler               " always show location information
 set showmatch           " show matching paren
 " }}}
+" Plugin settings {{{
+filetype plugin on
+filetype plugin indent on
+
+" fzf
+set rtp+=/usr/local/opt/fzf
+nnoremap <C-p> :FZF<CR>
+
+" NERDTree
+let g:NERDTreeRespectWildIgnore=1
+nnoremap <Leader>n :NERDTreeToggle<CR>
+
+" fugitive
+nnoremap <Leader>g :Gstatus<CR>
+
+" airline
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+" vim-sleuth
+runtime! plugin/sleuth.vim
+" }}}
 " Autocmds {{{
 augroup filetype_settings
   autocmd!
@@ -141,6 +164,9 @@ augroup filetype_settings
 
   " java
   autocmd FileType java setlocal sw=4
+
+  " haskell
+  autocmd FileType haskell setlocal sw=2
 
   " default filetype
   autocmd FileType text setlocal formatoptions+=t " auto wrap lines
@@ -178,25 +204,6 @@ augroup END
 " global file replace on inner word
 nnoremap <leader>R yiw:%s/<C-r>"//g<Left><Left>
 " }}}
-" Plugin settings {{{
-filetype plugin on
-filetype plugin indent on
-
-" fzf
-set rtp+=/usr/local/opt/fzf
-nnoremap <C-p> :FZF<CR>
-
-" NERDTree
-let g:NERDTreeRespectWildIgnore=1
-nnoremap <Leader>n :NERDTreeToggle<CR>
-
-" fugitive
-nnoremap <Leader>g :Gstatus<CR>
-
-" airline
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-" }}}
 " Appearance {{{
 syntax on
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -230,5 +237,5 @@ map! <Leader>sdate <cr><esc>k:r!date +"\%m/\%d/\%y"<cr>kJJi
 " Misc {{{
 " insert current path into command prompt
 cnoremap %% <C-R>=expand('%:p:h').'/'<cr>
-nnoremap <Leader>v :e ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>v :tabe ~/.config/nvim/init.vim<CR>
 " }}}
