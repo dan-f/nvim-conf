@@ -5,10 +5,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'Auto-Pairs'
 Plug 'Shougo/unite.vim'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'itchyny/vim-haskell-indent'
 Plug 'jelera/vim-javascript-syntax'
-Plug 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'matchit.zip'
+Plug 'niklasl/vim-rdf'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
@@ -24,9 +26,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'brendonrapp/smyck-vim'
 Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'junegunn/seoul256.vim'
 Plug 'matthewtodd/vim-twilight'
 Plug 'rainbow_parentheses.vim'
 Plug 'twerth/ir_black'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/xoria256.vim'
 Plug 'wesgibbs/vim-irblack'
 
@@ -195,6 +199,7 @@ let g:airline_right_sep=''
 " }}}
 " Appearance {{{
 syntax on
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set listchars=extends:»,tab:▸\ ,trail:·,extends:»
 set list
 set cursorline
@@ -203,7 +208,8 @@ if has('gui_running')
   set guioptions-=r " hide scrollbar
   set guifont=Menlo\ Regular:h12
 endif
-color xoria256
+let g:airline_theme='sol'
+color seoul256-light
 " }}}
 " Stuff from Ben {{{
 " I Make a bunch of text headlines
