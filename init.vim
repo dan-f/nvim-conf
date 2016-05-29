@@ -66,6 +66,7 @@ set formatoptions+=c " Auto-wrap text using textwidth
 set formatoptions+=r " Auto-insert current comment leader on next line
 set formatoptions+=o " Same as above, but when you hit o/O
 set formatoptions+=q " Lets you format comments with gq
+set formatoptions+=a " auto-formats paragraphs, while you're editing them
 set formatoptions+=n " recognizes numbered lists when formatting text
 set formatoptions+=2 " keeps indenting on different lines
 "set equalprg=indent\ -kr\ -nut "\ -prs " '=' command uses 'indent' unix prog to format code
