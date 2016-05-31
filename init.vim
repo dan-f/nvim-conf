@@ -2,12 +2,12 @@
 call plug#begin('~/.vim/plugged')
 
 " Tools:
-Plug 'Auto-Pairs'
 Plug 'ElmCast/elm-vim/'
 Plug 'Shougo/unite.vim'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'jelera/vim-javascript-syntax'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'matchit.zip'
