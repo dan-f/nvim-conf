@@ -1,17 +1,25 @@
 " vim-plug {{{
 call plug#begin('~/.vim/plugged')
 
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
 " Tools:
 Plug 'ElmCast/elm-vim/'
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/unite.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'itchyny/vim-haskell-indent'
-Plug 'jelera/vim-javascript-syntax'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'matchit.zip'
+Plug 'mxw/vim-jsx'
 Plug 'niklasl/vim-rdf'
+Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
@@ -54,6 +62,7 @@ set laststatus=2
 set shell=/bin/bash
 " }}}
 " Formatting {{{
+set sw=2
 set textwidth=80
 set backspace=2
 set expandtab
@@ -67,8 +76,6 @@ set formatoptions+=r " Auto-insert current comment leader on next line
 set formatoptions+=o " Same as above, but when you hit o/O
 set formatoptions+=q " Lets you format comments with gq
 set formatoptions+=n " recognizes numbered lists when formatting text
-set formatoptions+=2 " keeps indenting on different lines
-"set equalprg=indent\ -kr\ -nut "\ -prs " '=' command uses 'indent' unix prog to format code
 " }}}
 " Folding {{{
 nnoremap <Space> za
@@ -130,43 +137,33 @@ let g:airline_right_sep=''
 
 " vim-sleuth
 runtime! plugin/sleuth.vim
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" vim-jsx
+let g:jsx_ext_required = 0
 " }}}
 " Autocmds {{{
 augroup filetype_settings
   autocmd!
 
   " vim
-  autocmd FileType vim setlocal sw=2
   autocmd FileType vim setlocal foldmethod=marker
 
   " python
   autocmd FileType python setlocal sw=4
   setlocal keywordprg=pydoc
 
-  " ruby
-  autocmd FileType ruby setlocal sw=2
-  autocmd FileType eruby setlocal sw=2
-
   " js
-  autocmd FileType javascript setlocal sw=4
+  autocmd FileType javascript setlocal sw=2
   autocmd FileType javascript setlocal fo-=c " Don't auto-wrap
 
   " html
-  autocmd FileType html setlocal sw=4
   autocmd FileType htmldjango setlocal sw=4
-
-  " css
-  autocmd Filetype css setlocal sw=4
-  autocmd Filetype scss setlocal sw=4
-
-  " c/c++
-  autocmd FileType c,cpp setlocal sw=4
 
   " java
   autocmd FileType java setlocal sw=4
-
-  " haskell
-  autocmd FileType haskell setlocal sw=2
 
   " default filetype
   autocmd FileType text setlocal formatoptions+=t " auto wrap lines
