@@ -8,6 +8,7 @@ Plug 'hynek/vim-python-pep8-indent'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/vim-slash'
 Plug 'majutsushi/tagbar'
 Plug 'matchit.zip'
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -105,7 +106,6 @@ set hlsearch
 set pastetoggle=<F5>    " used for pasting in data
 set ruler               " always show location information
 set showmatch           " show matching paren
-nnoremap <Leader>n :nohls<CR>
 " }}}
 " Plugin settings {{{
 filetype plugin on
