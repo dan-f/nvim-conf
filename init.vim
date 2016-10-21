@@ -1,26 +1,21 @@
 " vim-plug {{{
 call plug#begin('~/.vim/plugged')
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-
 " Tools:
+" Plug 'SirVer/ultisnips'
 Plug 'ElmCast/elm-vim/'
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-Plug 'Shougo/unite.vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf.vim'
-Plug 'kchmck/vim-coffee-script'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'majutsushi/tagbar'
 Plug 'matchit.zip'
+Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mxw/vim-jsx'
 Plug 'niklasl/vim-rdf'
 Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
@@ -32,16 +27,10 @@ Plug 'tpope/vim-surround'
 
 " Cosmetic:
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
-Plug 'brendonrapp/smyck-vim'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'junegunn/seoul256.vim'
-Plug 'matthewtodd/vim-twilight'
 Plug 'rainbow_parentheses.vim'
-Plug 'twerth/ir_black'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/xoria256.vim'
-Plug 'wesgibbs/vim-irblack'
+Plug 'whatyouhide/vim-gotham'
 
 call plug#end()
 " }}}
@@ -70,6 +59,7 @@ set cinkeys=0{,0},0),0#,;,:,o,O,e
 set indentkeys=o,O,:,0#,e
 set cinoptions+=(0   " indent parenthetical function arguments correctly
 set cinoptions+=g0   " do not indent access modifiers
+set cinoptions+=:0
 set formatoptions-=t " don't wrap text in programming modes
 set formatoptions+=c " Auto-wrap text using textwidth
 set formatoptions+=r " Auto-insert current comment leader on next line
@@ -115,6 +105,7 @@ set hlsearch
 set pastetoggle=<F5>    " used for pasting in data
 set ruler               " always show location information
 set showmatch           " show matching paren
+nnoremap <Leader>n :nohls<CR>
 " }}}
 " Plugin settings {{{
 filetype plugin on
@@ -126,14 +117,19 @@ nnoremap <C-p> :FZF<CR>
 
 " NERDTree
 let g:NERDTreeRespectWildIgnore=1
-nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>N :NERDTreeToggle<CR>
+
+" auto-pairs
+let g:AutoPairsShortcutToggle=''
+let g:AutoPairsShortcutJump=''
+
+" yankstack
+let g:yankstack_map_keys = 0
+nmap <M-p> <Plug>yankstack_substitute_older_paste
+nmap <M-n> <Plug>yankstack_substitute_newer_paste
 
 " fugitive
 nnoremap <Leader>g :Gstatus<CR>
-
-" airline
-let g:airline_left_sep=''
-let g:airline_right_sep=''
 
 " vim-sleuth
 runtime! plugin/sleuth.vim
@@ -143,27 +139,61 @@ let g:deoplete#enable_at_startup = 1
 
 " vim-jsx
 let g:jsx_ext_required = 0
+
+" tagbar
+nnoremap <Leader>t :Tagbar<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 " }}}
 " Autocmds {{{
 augroup filetype_settings
   autocmd!
 
-  " vim
   autocmd FileType vim setlocal foldmethod=marker
 
-  " python
   autocmd FileType python setlocal sw=4
-  setlocal keywordprg=pydoc
+  autocmd FileType python setlocal keywordprg=pydoc
 
-  " js
   autocmd FileType javascript setlocal sw=2
   autocmd FileType javascript setlocal fo-=c " Don't auto-wrap
 
-  " html
   autocmd FileType htmldjango setlocal sw=4
 
-  " java
   autocmd FileType java setlocal sw=4
+
+  autocmd FileType haskell setlocal sw=2
+
+  autocmd FileType elm setlocal sw=2
+
+  autocmd FileType go setlocal sw=4
+  autocmd FileType go setlocal ts=4
+  autocmd FileType go setlocal noet
+  autocmd FileType go setlocal nolist
 
   " default filetype
   autocmd FileType text setlocal formatoptions+=t " auto wrap lines
@@ -204,7 +234,7 @@ nnoremap <leader>R yiw:%s/<C-r>"//g<Left><Left>
 " Appearance {{{
 syntax on
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set listchars=extends:»,tab:▸\ ,trail:·,extends:»
+set listchars=extends:»,tab:▸\ ,trail:·
 set list
 set cursorline
 if has('gui_running')
@@ -212,8 +242,7 @@ if has('gui_running')
   set guioptions-=r " hide scrollbar
   set guifont=Menlo\ Regular:h12
 endif
-let g:airline_theme='sol'
-color seoul256-light
+color seoul256
 " }}}
 " Stuff from Ben {{{
 " I Make a bunch of text headlines
