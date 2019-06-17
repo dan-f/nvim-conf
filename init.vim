@@ -10,7 +10,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/vim-slash'
 Plug 'majutsushi/tagbar'
-Plug 'matchit.zip'
+Plug 'vimscripts/matchit.zip'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mxw/vim-jsx'
 Plug 'niklasl/vim-rdf'
@@ -30,7 +30,7 @@ Plug 'tpope/vim-surround'
 Plug 'airblade/vim-gitgutter'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'junegunn/seoul256.vim'
-Plug 'rainbow_parentheses.vim'
+Plug 'vim-scripts/rainbow_parentheses.vim'
 Plug 'whatyouhide/vim-gotham'
 
 call plug#end()
