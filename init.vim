@@ -4,13 +4,13 @@ call plug#begin('~/.vim/plugged')
 " Tools:
 " Plug 'SirVer/ultisnips'
 Plug 'ElmCast/elm-vim/'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/vim-slash'
 Plug 'majutsushi/tagbar'
-Plug 'vimscripts/matchit.zip'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mxw/vim-jsx'
 Plug 'niklasl/vim-rdf'
@@ -25,6 +25,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
+Plug 'vimscripts/matchit.zip'
 
 " Cosmetic:
 Plug 'airblade/vim-gitgutter'
@@ -242,7 +243,7 @@ if has('gui_running')
   set guioptions-=r " hide scrollbar
   set guifont=Menlo\ Regular:h12
 endif
-color seoul256
+color catppuccin_frappe
 " }}}
 " Stuff from Ben {{{
 " I Make a bunch of text headlines
